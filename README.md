@@ -1,12 +1,12 @@
 ## 1. Graph Embedding
 
-- ![DeepWalk [1]](https://github.com/paulosantosneto/GNNs/tree/main/graph_embeddings/deepwalk)
-- ![Struc2vec [2]](https://github.com/paulosantosneto/GNNs/tree/main/graph_embeddings/struc2vec)
-- ![Node2vec [3]](https://github.com/paulosantosneto/GNNs/tree/main/graph_embeddings/node2vec)
+- [DeepWalk [1]](https://github.com/paulosantosneto/GNNs/tree/main/graph_embeddings/deepwalk)
+- [Struc2vec [2]](https://github.com/paulosantosneto/GNNs/tree/main/graph_embeddings/struc2vec)
+- [Node2vec [3]](https://github.com/paulosantosneto/GNNs/tree/main/graph_embeddings/node2vec)
 
 ## 2. Graph Neural Networks
 
-- ![Graph Convolutional Network (GCN) [4]](https://github.com/paulosantosneto/GNNs/tree/main/graph_neural_networks/gcn)
+- [Graph Convolutional Network (GCN) [4]](https://github.com/paulosantosneto/GNNs/tree/main/graph_neural_networks/gcn)
 
 
 ### References
