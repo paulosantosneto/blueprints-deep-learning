@@ -4,9 +4,6 @@ import random
 import torch
 import torch.nn as nn
 import argparse
-import threading
-import time
-import concurrent.futures
 
 from networkx.generators.random_graphs import erdos_renyi_graph
 from utils import *
@@ -47,7 +44,7 @@ class DeepWalk(object):
         '''
 
         path = [node]
-
+    
         for _ in range(self.T):
             node = random.choice(self.G[path[-1]])
             path.append(node)
