@@ -1,4 +1,4 @@
-## 1. Graph Embedding
+## 1. Embedding
 
 - [DeepWalk [1]](https://github.com/paulosantosneto/GNNs/tree/main/graph_embeddings/deepwalk)
 - [Struc2vec [2]](https://github.com/paulosantosneto/GNNs/tree/main/graph_embeddings/struc2vec)
