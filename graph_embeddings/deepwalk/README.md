@@ -9,3 +9,7 @@ To infer:
 ```
 python3 deepwalk.py --mode inference --model_load_path weights_50.pth --model_config_path parameters.json --node 0
 ```
+
+## Simple Ilustration of Random Walk
+
+![](https://github.com/paulosantosneto/NLP/blob/main/GNNs/graph_embeddings/deepwalk/random_walk.png)
