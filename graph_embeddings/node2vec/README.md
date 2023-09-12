@@ -11,5 +11,5 @@ python3 node2vec.py --mode inference --model_load_path weights_50.pth --model_co
 ```
 ## Simple Ilustration of Biased Random Walk
 
-![](https://github.com/paulosantosneto/GNNs/blob/main/graph_embeddings/deepwalk/biased_random_walk.png)
+![](https://github.com/paulosantosneto/GNNs/blob/main/graph_embeddings/node2vec/biased_random_walk.png)
 
