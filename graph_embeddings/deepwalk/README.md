@@ -34,7 +34,7 @@ python3 deepwalk.py --mode inference --model_load_path weights_50.pth --model_co
 ## Plots
 
 <div style="display: flex; justify-content: center;">
-    <img src="https://github.com/paulosantosneto/GNNs/blob/main/graph_embeddings/deepwalk/figures/graph.png" alt="graph" width="100" height="100" />
-    <img src="https://github.com/paulosantosneto/GNNs/blob/main/graph_embeddings/deepwalk/figures/loss.png" alt="loss" width="100" height="100" />
-    <img src="https://github.com/paulosantosneto/GNNs/blob/main/graph_embeddings/deepwalk/figures/PCA.png" alt="pca" width="100" height="100" />
+    <img src="https://github.com/paulosantosneto/GNNs/blob/main/graph_embeddings/deepwalk/figures/graph.png" alt="graph" width="300" height="300" />
+    <img src="https://github.com/paulosantosneto/GNNs/blob/main/graph_embeddings/deepwalk/figures/loss.png" alt="loss" width="300" height="300" />
+    <img src="https://github.com/paulosantosneto/GNNs/blob/main/graph_embeddings/deepwalk/figures/PCA.png" alt="pca" width="300" height="300" />
 </div>
