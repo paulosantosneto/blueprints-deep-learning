@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import argparse
 from sklearn.decomposition import PCA
 import numpy as np
+from networkx.generators.random_graphs import erdos_renyi_graph
 
 def get_args():
 
@@ -21,8 +22,13 @@ def get_args():
     parser.add_argument('--edges', default=0.5, type=float)
     parser.add_argument('--model_load_path', type=str)
     parser.add_argument('--model_config_path', type=str)
-    parser.add_argument('--node', type=str)
-    
+    parser.add_argument('--node', default=0, type=int)
+    parser.add_argument('--plot_graph', type=bool, default=False)
+    parser.add_argument('--plot_pca', type=bool, default=False)
+    parser.add_argument('--plot_loss', type=bool, default=False)
+    parser.add_argument('--save_model', type=bool, default=True)
+    parser.add_argument('--gpu', type=bool, default=False)
+    parser.add_argument('--most_similar', type=int, default=1)
     args = parser.parse_args()
 
     return args
@@ -72,7 +78,7 @@ def save_model(model: any, epochs: str):
 def plot_loss(epochs: int, loss_history: list):
 
     plt.clf()
-    plt.plot(np.arange(epochs), loss_history)
+    plt.plot(np.arange(epochs), loss_history, c='black')
     plt.xlabel('Epochs')
     plt.ylabel('Loss')
     plt.savefig('loss.png')
@@ -83,7 +89,7 @@ def plot_pca(vocab: list, data: list):
     pca = PCA(n_components=2)
     data_pca = pca.fit_transform(data)
 
-    plt.scatter(data_pca[:, 0], data_pca[:, 1])
+    plt.scatter(data_pca[:, 0], data_pca[:, 1], c='black')
 
     for i, word in enumerate(vocab):
         plt.annotate(word, (data_pca[i, 0], data_pca[i, 1]), fontsize=8)
@@ -114,13 +120,19 @@ def list2dict(nodes: list, edges: list):
     
     return graph
 
+def generate_random_graph(number_nodes: int, porc_edges: float):
+    
+    g = erdos_renyi_graph(number_nodes, porc_edges)
+
+    return g.nodes, g.edges
+
 def plot_graph(nodes: list, edges: list):
 
     g = nx.Graph()
     g.add_edges_from(edges)
     g.add_nodes_from(nodes)
-    layout = nx.random_layout(g)
-    nx.draw(g, pos=layout, with_labels=True)
+    layout = nx.circular_layout(g)
+    nx.draw(g, alpha=0.9, node_size=1000, node_color='black', pos=layout, with_labels=True, font_color='whitesmoke')
     plt.savefig(os.getcwd() + '/graph.png')
 
 
