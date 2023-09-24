@@ -15,11 +15,11 @@ def get_args():
     parser.add_argument('--epochs', default=50, type=int, help='number of epochs.')
     parser.add_argument('--embedding_size', default=100, type=int, help='the latent dimension or latent space to which the nodes will be reduced.')
     parser.add_argument('--mode', default='train', type=str, help='the execution mode: training or inference.')
-    parser.add_argument('--T', default=4, type=int)
-    parser.add_argument('--gamma', default=3, type=int)
-    parser.add_argument('--w', default=2, type=int)
-    parser.add_argument('--number_nodes', default=50, type=int)
-    parser.add_argument('--edges', default=0.5, type=float)
+    parser.add_argument('--l', default=4, type=int, help='walk legth.')
+    parser.add_argument('--r', default=3, type=int, help='walks per node.')
+    parser.add_argument('--k', default=2, type=int, help='context size.')
+    parser.add_argument('--number_nodes', default=50, type=int, help='number of nodes in graph.')
+    parser.add_argument('--percent_edges', default=0.5, type=float, help='percentage of connections between nodes.')
     parser.add_argument('--model_load_path', type=str)
     parser.add_argument('--model_config_path', type=str)
     parser.add_argument('--node', default=0, type=int)
@@ -27,8 +27,10 @@ def get_args():
     parser.add_argument('--plot_pca', type=bool, default=False)
     parser.add_argument('--plot_loss', type=bool, default=False)
     parser.add_argument('--save_model', type=bool, default=True)
-    parser.add_argument('--gpu', type=bool, default=False)
-    parser.add_argument('--most_similar', type=int, default=1)
+    parser.add_argument('--p', default=0.5, type=float, help='out parameter.')
+    parser.add_argument('--q', default=0.5, type=float, help='In-out parameter.')
+    parser.add_argument('--device', default='cpu', type=str)
+    parser.add_argument('--most_similar', default=1, type=int)
     args = parser.parse_args()
 
     return args
@@ -134,5 +136,6 @@ def plot_graph(nodes: list, edges: list):
     layout = nx.circular_layout(g)
     nx.draw(g, alpha=0.9, node_size=1000, node_color='black', pos=layout, with_labels=True, font_color='whitesmoke')
     plt.savefig(os.getcwd() + '/graph.png')
+
 
 

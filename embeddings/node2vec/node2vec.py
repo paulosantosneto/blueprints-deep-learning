@@ -1,15 +1,12 @@
-import os
-import networkx as nx
 import random
 import torch
 import torch.nn as nn
+import networkx as nx
 import argparse
 
 from networkx.generators.random_graphs import erdos_renyi_graph
 from utils import *
-from model import MyEmbedding, DeepWalk
-
-
+from model import MyEmbedding, Node2Vec
 
 def train(context_data: any, epochs: int, model: any, loss_fn: any, optimizer: any):
     ''' go through each epoch and adjust the parameters for each context. '''
@@ -38,27 +35,25 @@ def train(context_data: any, epochs: int, model: any, loss_fn: any, optimizer: a
     return loss_history
 
 if __name__ == '__main__':
-    
+
     args = get_args()
 
     if args.mode == 'train':
 
-        nodes, edges = generate_random_graph(args.number_nodes, args.edges)
-
-        if args.plot_graph:
-            plot_graph(nodes, edges) 
+        nodes, edges = generate_random_graph(args.number_nodes, args.percent_edges)
+        plot_graph(nodes, edges)
 
         G = list2dict(nodes, edges)
-        
-        context_data = DeepWalk(G, args.T, args.gamma, args.w, args.embedding_size, args).run()
 
-        model = MyEmbedding(vocab_size=len(G.keys()), embedding_size=args.embedding_size)
+        context_data = Node2Vec(G, args.embedding_size, args.r, args.l, args.k, args.p, args.q).run()
+
+        model = MyEmbedding(vocab_size=len(G.keys()), embedding_size=args.embedding_size).to(args.device)
 
         loss_fn = nn.CrossEntropyLoss()
         optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
 
         loss_history = train(context_data, args.epochs, model, loss_fn, optimizer) 
-        
+
         if args.plot_loss:
             plot_loss(args.epochs, loss_history)
         
@@ -67,7 +62,7 @@ if __name__ == '__main__':
 
         if args.save_model:
             save_model(model, str(args.epochs))
-            save_parameters(len(G.keys()), args.embedding_size, args.T)
+            save_parameters(len(G.keys()), args.embedding_size, args.l)
 
     elif args.mode == 'inference':
 
@@ -86,4 +81,3 @@ if __name__ == '__main__':
         for node, indice in zip(nodes, indices):
             
             print(f'Node {indice}: {node*100:.2f}%')
-        

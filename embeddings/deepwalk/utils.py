@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import argparse
 from sklearn.decomposition import PCA
 import numpy as np
+from networkx.generators.random_graphs import erdos_renyi_graph
 
 def get_args():
 
@@ -14,16 +15,20 @@ def get_args():
     parser.add_argument('--epochs', default=50, type=int, help='number of epochs.')
     parser.add_argument('--embedding_size', default=100, type=int, help='the latent dimension or latent space to which the nodes will be reduced.')
     parser.add_argument('--mode', default='train', type=str, help='the execution mode: training or inference.')
-    parser.add_argument('--l', default=4, type=int, help='walk legth.')
-    parser.add_argument('--r', default=3, type=int, help='walks per node.')
-    parser.add_argument('--k', default=2, type=int, help='context size.')
-    parser.add_argument('--number_nodes', default=50, type=int, help='number of nodes in graph.')
-    parser.add_argument('--percent_edges', default=0.5, type=float, help='percentage of connections between nodes.')
+    parser.add_argument('--T', default=4, type=int)
+    parser.add_argument('--gamma', default=3, type=int)
+    parser.add_argument('--w', default=2, type=int)
+    parser.add_argument('--number_nodes', default=50, type=int)
+    parser.add_argument('--percent_edges', default=0.5, type=float)
     parser.add_argument('--model_load_path', type=str)
     parser.add_argument('--model_config_path', type=str)
-    parser.add_argument('--p', default=0.5, type=float, help='out parameter.')
-    parser.add_argument('--q', default=0.5, type=float, help='In-out parameter.')
-     
+    parser.add_argument('--node', default=0, type=int)
+    parser.add_argument('--plot_graph', type=bool, default=False)
+    parser.add_argument('--plot_pca', type=bool, default=False)
+    parser.add_argument('--plot_loss', type=bool, default=False)
+    parser.add_argument('--save_model', type=bool, default=True)
+    parser.add_argument('--device', type=str, default='cpu')
+    parser.add_argument('--most_similar', type=int, default=1)
     args = parser.parse_args()
 
     return args
@@ -70,36 +75,36 @@ def save_model(model: any, epochs: str):
     except:
         raise 'There was a problem saving the model!'
 
+def plot_loss(epochs: int, loss_history: list):
+
+    plt.clf()
+    plt.plot(np.arange(epochs), loss_history, c='black')
+    plt.xlabel('Epochs')
+    plt.ylabel('Loss')
+    plt.savefig('loss.png')
+    plt.clf()
+
 def plot_pca(vocab: list, data: list):
 
     pca = PCA(n_components=2)
     data_pca = pca.fit_transform(data)
 
-    plt.scatter(data_pca[:, 0], data_pca[:, 1])
+    plt.scatter(data_pca[:, 0], data_pca[:, 1], c='black')
 
     for i, word in enumerate(vocab):
         plt.annotate(word, (data_pca[i, 0], data_pca[i, 1]), fontsize=8)
 
     plt.savefig('PCA.png')
 
-def plot_loss(epochs: int, loss_history: list):
-
-    plt.clf()
-    plt.plot(np.arange(epochs), loss_history)
-    plt.xlabel('Epochs')
-    plt.ylabel('Loss')
-    plt.savefig('loss.png')
-    plt.clf()
-
 def edges_nodes(graph: list):
 
     nodes = []
-
+    
     for nds in graph:
         nodes.extend(nds)
-
+        
     nodes = set(nodes)
-
+    
     return nodes, graph
 
 def list2dict(nodes: list, edges: list):
@@ -112,8 +117,14 @@ def list2dict(nodes: list, edges: list):
                 graph[edge[0]].append(edge[1])
             if edge[0] not in graph[edge[1]]:
                 graph[edge[1]].append(edge[0])
-
+    
     return graph
+
+def generate_random_graph(number_nodes: int, porc_edges: float):
+    
+    g = erdos_renyi_graph(number_nodes, porc_edges)
+
+    return g.nodes, g.edges
 
 def plot_graph(nodes: list, edges: list):
 
@@ -123,6 +134,5 @@ def plot_graph(nodes: list, edges: list):
     layout = nx.circular_layout(g)
     nx.draw(g, alpha=0.9, node_size=1000, node_color='black', pos=layout, with_labels=True, font_color='whitesmoke')
     plt.savefig(os.getcwd() + '/graph.png')
-
 
 

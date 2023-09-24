@@ -2,3 +2,4 @@ __pycache__
 venv
 venv/
 weights/
+graph_neural_networks/
