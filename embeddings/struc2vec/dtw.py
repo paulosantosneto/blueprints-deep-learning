@@ -15,7 +15,8 @@ def dynamic_time_warping(A: np.array, B: np.array):
         for j in range(1, B_size + 1):
 
             mins = np.array([M[i+1, j-1], M[i, j-1], M[i+1, j]])
-            M[i, j] = abs(A[A_size-i-1] - B[j-1]) + mins[np.isfinite(mins)].min()
+            dij = (max(A[A_size-i-1], B[j-1]) / (min(A[A_size-i-1], B[j-1]))) - 1
+            M[i, j] = dij + mins[np.isfinite(mins)].min()
     
     # --- Warping Path ---
     
@@ -39,8 +40,3 @@ def dynamic_time_warping(A: np.array, B: np.array):
             row_idx += 1
 
     return np.array(path).mean()
-    
-A = [1, 2, 8, 5, 5]
-B = [1, 2, 8, 5, 5]
-
-print(dynamic_time_warping(A, B))
