@@ -1,4 +1,4 @@
-`Warning` This is my implementation of the article ['DeepWalk: Online Learning of Social Representations'](https://arxiv.org/pdf/1403.6652.pdf). Therefore, it is not an official repository of it. Any code improvement recommendations are welcome.
+`Warning` This is my implementation of the article ['DeepWalk: Online Learning of Social Representations'](https://arxiv.org/pdf/1403.6652.pdf)[1]. Therefore, it is not an official repository of it. Any code improvement recommendations are welcome.
 
 **To Train**
 ```
@@ -32,6 +32,11 @@ python3 deepwalk.py --mode inference --model_load_path weights_50.pth --model_co
 - `Log Softmax` to transform logits into probabilities;
 - `Cross-Entropy Loss` as a cost function.
 
-## Simple Ilustration of Random Walk
+## Simple Random Walk Illustration
 
 ![](https://github.com/paulosantosneto/GNNs/blob/main/embeddings/deepwalk/figures/random_walk.png)
+
+
+## References
+
+[1] Perozzi, Bryan & Al-Rfou, Rami & Skiena, Steven. (2014). DeepWalk: Online Learning of Social Representations. Proceedings of the ACM SIGKDD International Conference on Knowledge Discovery and Data Mining. 10.1145/2623330.2623732. 

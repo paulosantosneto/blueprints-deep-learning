@@ -25,7 +25,6 @@ def get_args():
     parser.add_argument('--node', default=0, type=int)
     parser.add_argument('--plot_graph', type=bool, default=False)
     parser.add_argument('--plot_pca', type=bool, default=False)
-    parser.add_argument('--plot_loss', type=bool, default=False)
     parser.add_argument('--save_model', type=bool, default=True)
     parser.add_argument('--p', default=0.5, type=float, help='out parameter.')
     parser.add_argument('--q', default=0.5, type=float, help='In-out parameter.')

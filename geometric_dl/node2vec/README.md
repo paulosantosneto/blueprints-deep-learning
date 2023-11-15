@@ -1,4 +1,4 @@
-`Warning` This is my implementation of the article ['node2vec: Scalable Feature Learning for Networks'](https://arxiv.org/pdf/1607.00653.pdf). Therefore, it is not an official repository of it. Any code improvement recommendations are welcome.
+`Warning` This is my implementation of the article ['node2vec: Scalable Feature Learning for Networks'](https://arxiv.org/pdf/1607.00653.pdf)[1]. Therefore, it is not an official repository of it. Any code improvement recommendations are welcome.
 
 **To Train**
 ```
@@ -24,7 +24,6 @@ python3 node2vec.py --mode inference --model_load_path weights_50.pth --model_co
 - `--percent_edges` percentage of connections between nodes;
 - `--plot_graph` boolean argument for plotting the graph;
 - `--plot_pca` boolean argument to visualize the latent space generated using principal component analysis;
-- `--plot_loss` boolean argument to visualize the performance of the cost function;
 - `--save_model` enables the saving of parameters and weights for later inference;
 - `--device` allows processing using GPU;
 - `--most_similar` defines a range of the most similar nodes.
@@ -34,7 +33,10 @@ python3 node2vec.py --mode inference --model_load_path weights_50.pth --model_co
 - `Log Softmax` to transform logits into probabilities;
 - `Cross-Entropy Loss` as a cost function.
 
-## Simple Ilustration of Biased Random Walk
+## Simple Biased Random Walk Illustration
 
 ![](https://github.com/paulosantosneto/GNNs/blob/main/embeddings/node2vec/figures/biased_random_walk.png)
 
+## References
+
+[1] Grover, Aditya & Leskovec, Jure. (2016). node2vec: Scalable Feature Learning for Networks. KDD : proceedings. International Conference on Knowledge Discovery & Data Mining. 2016. 855-864. 10.1145/2939672.2939754.
