@@ -19,7 +19,7 @@ python3 main.py --epochs 100 --hidden_layers 16 --dataset cora
 ## Simple Ilustration of Message Passing
 
 
-![](https://github.com/paulosantosneto/GNNs/blob/main/dl_based_methods/GNN/figures/message_passing.png)
+![](https://github.com/paulosantosneto/dl-bp/blob/main/gnn/figures/message_passing.png)
 
 ## References
 

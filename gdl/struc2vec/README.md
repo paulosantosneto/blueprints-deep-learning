@@ -16,7 +16,7 @@ python3 main.py --mode inference --graph barbell__graph --model_load_path weight
 
 ## Simple Multilayer Graph Illustration
 
-![](https://github.com/paulosantosneto/GNNs/blob/main/embeddings/struc2vec/figures/multilayer_graph.png)
+![](https://github.com/paulosantosneto/dl-bp/blob/main/gdl/struc2vec/figures/multilayer_graph.png)
 
 Simplified representation of a random biased walk in the multilayer graph structure. The oriented dashed paths represent an example of a walk generated based on transitive probabilities proportional to the network structure.
 

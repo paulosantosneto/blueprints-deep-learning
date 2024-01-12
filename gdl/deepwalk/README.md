@@ -34,7 +34,7 @@ python3 deepwalk.py --mode inference --model_load_path weights_50.pth --model_co
 
 ## Simple Random Walk Illustration
 
-![](https://github.com/paulosantosneto/GNNs/blob/main/embeddings/deepwalk/figures/random_walk.png)
+![](https://github.com/paulosantosneto/dl-bp/blob/main/gdl/deepwalk/figures/random_walk.png)
 
 
 ## References
