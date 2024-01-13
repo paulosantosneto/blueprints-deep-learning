@@ -3,3 +3,5 @@ venv
 venv/
 weights/
 graph_neural_networks/
+loss.*
+weights/

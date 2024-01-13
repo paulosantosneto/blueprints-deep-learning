@@ -14,4 +14,5 @@ This repository aims to propose a set of implementations of different deep learn
 ## 2. Natural Language Processing
 
 - [Word2Vec](https://github.com/paulosantosneto/dl-bp/tree/main/nlp/word2vec)
+- [RNN, LSTM & GRU](https://github.com/paulosantosneto/dl-bp/tree/main/nlp/rsm)
 
