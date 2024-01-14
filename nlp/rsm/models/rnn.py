@@ -48,5 +48,3 @@ class RNN(nn.Module):
 		outs = torch.log_softmax(outs, dim=2).squeeze(0)
 
 		return outs, hiddens
-
-

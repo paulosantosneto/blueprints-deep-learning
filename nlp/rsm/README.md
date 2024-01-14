@@ -17,13 +17,13 @@ python3 main.py --mode train --sequence_model rnn --path_file ./data/small_datas
 
 **To Infer**
 ```
-python3 main.py --mode inference --model_load_path best_model_50.pth --start_sequence artificial --model_config_path parameters.json
+python3 main.py --mode inference --model_load_path best_model_rnn_50.pth --start_sequence artificial --model_config_path parameters_rnn.json --max_length 30
 ```
 
 ### Resources
 
 https://www.cs.toronto.edu/~graves/preprint.pdf
 
-https://arxiv.org/pdf/1402.1128.pdf
+https://arxiv.org/pdf/1909.09586.pdf
 
 http://www.fit.vutbr.cz/research/groups/speech/publi/2010/mikolov_interspeech2010_IS100722.pdf

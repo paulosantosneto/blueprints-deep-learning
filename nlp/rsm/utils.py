@@ -73,12 +73,17 @@ def split_text_in_chunks(input_sequence: torch.tensor, length: int):
 
 # --- plots ---
 
-def plot_loss(epochs: int, loss_history: list):
-
+def plot_loss(epochs: int, loss_histories: list, labels: list):
     plt.clf()
-    plt.plot(np.arange(epochs), loss_history, c='black')
+    
+    line_styles = ['-', '--', ':']  # Adicione mais estilos se necessário
+    
+    for i in range(len(loss_histories)):
+        plt.plot(np.arange(epochs), loss_histories[i], label=labels[i], linestyle=line_styles[i])
+
     plt.xlabel('Epochs')
     plt.ylabel('Loss')
+    plt.legend()
     plt.savefig('loss.png')
     plt.clf()
 

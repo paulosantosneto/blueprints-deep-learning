@@ -45,7 +45,7 @@ def train_model(args: dict, model: torch.nn.Sequential, loss_fn: any, optimizer:
 	
 	loss_history = []
 		
-	for epoch in range(args.epochs):
+	for epoch in range(1, args.epochs + 1):
 		
 		local_loss = 0
 
@@ -59,7 +59,7 @@ def train_model(args: dict, model: torch.nn.Sequential, loss_fn: any, optimizer:
 			
 			local_loss += loss_fn(logits, target_sample[batch].squeeze(0))
 		
-		if args.verbose:
+		if args.verbose and epoch % 10 == 0:
 			print(f'Epochs: {epoch} | Loss: {local_loss.item():.5f}')
 
 		loss_history.append(local_loss.item())
@@ -90,31 +90,31 @@ if __name__ == '__main__':
 		
 		word2idx = {word:idx for idx, word in enumerate(vocab)}
 		idx2word = {idx:word for idx, word in enumerate(vocab)}
-
-		print(word2idx['unknow'])
 			
 		if args.verbose:
 
 			print('\n-------- Informations --------')
 			print(f'\nLen Vocabulary (unique words): {len(vocab)}')
 			print(f'Number of words: {len(preprocessed_text)}')
-			print('\n-------- Epochs --------\n')
 
 		indexed_data = [word2idx[word] for word in preprocessed_text]
 
 		# --- Training Model ---
-		
+		plot_loss_history = {'labels': [], 'loss': []}
+
 		for i in range(len(args.sequence_model)):
+
+			print(f'\nArchitecture: {args.sequence_model[i].upper()}')
+			print('\n-------- Epochs --------\n')
 			# choose the model
 			if args.sequence_model[i] == 'rnn':
 
 				model = RNN(in_d=args.dimension, out_d=args.dimension, vocab_size=len(vocab))
 			elif args.sequence_model[i] == 'lstm':
-				# TODO	
 				model = LSTM(in_d=args.dimension, out_d=args.dimension, vocab_size=len(vocab))
 			else:
 				# TODO
-				pass
+				model = GRU(in_d=args.dimension, out_d=args.dimension, vocab_size=len(vocab))
 
 			loss_fn = nn.CrossEntropyLoss()
 			optimizer = torch.optim.Adam(model.parameters(), lr=args.learning_rate)
@@ -127,15 +127,18 @@ if __name__ == '__main__':
 			
 			loss = train_model(args, model, loss_fn, optimizer, input_sequence_chunks, target_sequence_chunks)
 			
-			if args.plot_loss:
-				
-				plot_loss(args.epochs, loss)
+			plot_loss_history['labels'].append(args.sequence_model[i])
+			plot_loss_history['loss'].append(loss)
 
 			if args.save_model:
 
 				save_model(model, str(args.epochs), args.sequence_model[i])
 				save_parameters(args.dimension, word2idx, idx2word, len(vocab), args.sequence_model[i])
-
+		
+		if args.plot_loss:
+				
+				plot_loss(args.epochs, plot_loss_history['loss'], plot_loss_history['labels'])
+	
 	elif args.mode == 'inference':
 
 		for i in range(len(args.model_config_path)):
@@ -150,7 +153,9 @@ if __name__ == '__main__':
 			elif params['model']== 'lstm':
 					
 				model = LSTM(in_d=params['dimension'], out_d=params['dimension'], vocab_size=params['vocab_size'])
-				
+			else:
+				model = GRU(in_d=params['dimension'], out_d=params['dimension'], vocab_size=params['vocab_size'])
+
 			model.load_state_dict(torch.load(f'./weights/{args.model_load_path[i]}'))
 			
 			generate_text(model, args.start_sequence, args.max_length, params['word2idx'], params['idx2word'], args.temperature)
